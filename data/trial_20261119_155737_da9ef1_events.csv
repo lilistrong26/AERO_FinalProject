@@ -1,0 +1,21 @@
+trial_id,participant,date,notes,list_mode,timestamp,elapsed_s,event,display_mode,category,step,reaction_time_ms,normal_clicks,emergency_clicks,progress_clicks,unnecessary_clicks
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:37.517-05:00,0.0,experiment_started,normal,,0,,0,0,0,0
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:41.267-05:00,3.75,background,normal,unnecessary,0,,1,0,0,1
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:42.675-05:00,5.159,advance,normal,progress,1,,2,0,1,1
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:43.967-05:00,6.45,expand,normal,unnecessary,1,,3,0,1,2
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:47.561-05:00,10.044,expand,normal,unnecessary,1,,4,0,1,3
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:48.600-05:00,11.083,advance,normal,progress,2,,5,0,2,3
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:50.178-05:00,12.661,expand,normal,unnecessary,2,,6,0,2,4
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:51.713-05:00,14.196,expand,normal,unnecessary,2,,7,0,2,5
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:52.587-05:00,15.07,advance,normal,progress,3,,8,0,3,5
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:59.031-05:00,21.514,background,normal,unnecessary,3,,9,0,3,6
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:57:59.902-05:00,22.386,background,normal,unnecessary,3,,10,0,3,7
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:58:00.637-05:00,23.12,expand,normal,unnecessary,3,,11,0,3,8
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:58:01.369-05:00,23.853,expand,normal,unnecessary,3,,12,0,3,9
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:58:01.783-05:00,24.267,expand,normal,unnecessary,3,,13,0,3,10
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:58:02.199-05:00,24.682,expand,normal,unnecessary,3,,14,0,3,11
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:58:11.111-05:00,33.595,emergency_triggered,emergency,,0,,14,0,3,11
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:58:13.587-05:00,36.071,acknowledge,emergency,response,0,2397,14,1,3,11
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,,all,2026-11-19T15:58:26.369-05:00,48.852,experiment_stopped,emergency,,0,,14,1,3,11
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,Experiment n1 for mode 1,all,2026-11-19T15:58:49.490-05:00,71.974,notes_updated,emergency,,0,,14,1,3,11
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,Experiment n1 for mode 1,all,2026-11-19T15:58:50.707-05:00,73.191,notes_updated,emergency,,0,,14,1,3,11

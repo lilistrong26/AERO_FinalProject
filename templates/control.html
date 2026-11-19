@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EVA HUD — Experimenter Hub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/control.js') }}" defer></script>
+</head>
+<body class="controller-page">
+  <main class="controller-card experimenter-hub">
+    <h1>EVA HUD — Experimenter Hub</h1>
+    <p>Set up a participant trial, control the display, and collect results.</p>
+    <div class="controller-status">Server: <strong id="server-status">Connecting…</strong></div>
+    <div class="controller-status">Trial: <strong id="trial-status">Not running</strong></div>
+    <div class="controller-status">Current display: <strong id="current-mode">—</strong></div>
+    <div class="controller-status">Trial ID: <span id="trial-id">—</span></div>
+
+    <section class="hub-section">
+      <h2>1. Participant and setup</h2>
+      <label for="participant-name">Participant name or ID</label>
+      <input id="participant-name" type="text" placeholder="P001" autocomplete="off">
+      <label for="experiment-date">Experiment date</label>
+      <input id="experiment-date" type="date">
+      <label for="experiment-notes">Experiment notes</label>
+      <textarea id="experiment-notes" rows="3" placeholder="Observations and comments"></textarea>
+      <fieldset>
+        <legend>Task list configuration</legend>
+        <label class="radio-label"><input type="radio" name="list_mode" value="all" checked> Mode 1 — Show previous, current, and future tasks</label>
+        <label class="radio-label"><input type="radio" name="list_mode" value="current"> Mode 2 — Show current task only</label>
+      </fieldset>
+      <div class="controller-buttons"><button id="start-button">START EXPERIMENT</button><button id="stop-button" disabled>STOP EXPERIMENT</button></div>
+      <button id="save-notes" class="secondary-button" type="button">Save updated notes</button>
+    </section>
+
+    <section class="hub-section">
+      <h2>2. Display controls</h2>
+      <p>The experiment always starts in normal mode. The participant sees a blank screen until you start.</p>
+      <div class="controller-buttons"><button id="normal-button" disabled>NORMAL STATUS</button><button id="emergency-button" disabled>TRIGGER EMERGENCY</button></div>
+      <div class="controller-status">Emergency response: <strong id="ack-status">—</strong></div>
+      <div class="controller-status">Latest reaction time: <strong id="reaction-time">—</strong></div>
+      <div class="controller-status">Emergency triggers: <strong id="alert-count">0</strong></div>
+    </section>
+
+    <section class="click-counter-panel" aria-label="Participant interaction metrics">
+      <h2>3. Live participant metrics</h2>
+      <div class="click-counter-row"><span>Normal clicks</span><strong id="normal-clicks">0</strong></div>
+      <div class="click-counter-row"><span>Emergency clicks</span><strong id="emergency-clicks">0</strong></div>
+      <div class="click-counter-row total"><span>Total clicks</span><strong id="total-clicks">0</strong></div>
+      <div class="click-counter-row"><span>Progression clicks (checked task)</span><strong id="progress-clicks">0</strong></div>
+      <div class="click-counter-row"><span>Other clicks (task expand / background)</span><strong id="unnecessary-clicks">0</strong></div>
+      <p class="metric-detail">Normal: <span id="normal-progress">0</span> progression / <span id="normal-unnecessary">0</span> other</p>
+      <p class="metric-detail">Emergency: <span id="emergency-progress">0</span> progression / <span id="emergency-unnecessary">0</span> other</p>
+      <p class="metric-detail">Emergency acknowledgement is counted separately from progression and other clicks.</p>
+    </section>
+
+    <section class="hub-section">
+      <h2>4. Download results</h2>
+      <div class="controller-buttons"><button id="export-events" disabled>Download event CSV</button><button id="export-summary" disabled>Download summary CSV</button></div>
+      <p>Files are also saved automatically to the local <code>data/</code> folder.</p>
+    </section>
+    <p class="controller-feedback" id="feedback" role="status">Open the participant page in a second window to test.</p>
+    <p class="controller-hint">Participant: <a href="/" target="_blank" rel="noopener">Open participant display</a></p>
+  </main>
+</body>
+</html>

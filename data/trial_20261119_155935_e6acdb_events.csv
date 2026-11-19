@@ -1,0 +1,20 @@
+trial_id,participant,date,notes,list_mode,timestamp,elapsed_s,event,display_mode,category,step,reaction_time_ms,normal_clicks,emergency_clicks,progress_clicks,unnecessary_clicks
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:35.029-05:00,0.0,experiment_started,normal,,0,,0,0,0,0
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:37.418-05:00,2.39,advance,normal,progress,1,,1,0,1,0
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:38.858-05:00,3.829,background,normal,unnecessary,1,,2,0,1,1
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:39.651-05:00,4.623,background,normal,unnecessary,1,,3,0,1,2
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:40.323-05:00,5.295,expand,normal,unnecessary,1,,4,0,1,3
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:41.624-05:00,6.595,expand,normal,unnecessary,1,,5,0,1,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:42.381-05:00,7.352,advance,normal,progress,2,,6,0,2,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:43.726-05:00,8.698,advance,normal,progress,3,,7,0,3,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:44.438-05:00,9.41,advance,normal,progress,4,,8,0,4,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:45.094-05:00,10.066,advance,normal,progress,5,,9,0,5,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:47.922-05:00,12.893,emergency_triggered,emergency,,0,,9,0,5,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:49.848-05:00,14.82,acknowledge,emergency,response,0,1892,9,1,5,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:54.900-05:00,19.871,advance,emergency,progress,1,,9,2,6,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:55.668-05:00,20.639,advance,emergency,progress,2,,9,3,7,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:56.578-05:00,21.55,advance,emergency,progress,3,,9,4,8,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:57.317-05:00,22.289,advance,emergency,progress,4,,9,5,9,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:58.017-05:00,22.989,advance,emergency,progress,5,,9,6,10,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T15:59:59.960-05:00,24.931,advance,emergency,progress,6,,9,7,11,4
+trial_20261119_155935_e6acdb,Trial 1,2026-11-19,Experiment n1 for mode 1,current,2026-11-19T16:00:06.855-05:00,31.826,experiment_stopped,emergency,,6,,9,7,11,4

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EVA HUD — Participant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/tasks.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/participant.js') }}" defer></script>
+</head>
+<body class="participant-page">
+  <main class="viewport experiment-inactive" id="viewport" data-mode="normal">
+    <div class="waiting-screen" id="waiting-screen">Waiting for experiment to start</div>
+    <!-- Replace this empty workspace with SolidWorks images in a future version. -->
+    <div class="workspace" aria-label="Blank model workspace">
+      <div class="target-circle" id="target-circle" aria-label="Circle to identify"></div>
+    </div>
+
+    <section class="hud-panel suit-panel" aria-label="Suit status">
+      <svg class="astronaut-icon" viewBox="0 0 55 100" aria-hidden="true">
+        <circle cx="27" cy="14" r="11"/><path d="M17 26 Q27 21 37 26 L43 55 L35 59 L35 87 L27 94 L19 87 L19 59 L11 55 Z"/><path d="M16 31 L5 51 L8 64 L15 61 M39 31 L50 51 L47 64 L40 61 M27 59 L27 92"/>
+      </svg>
+      <div class="suit-content">
+        <div class="panel-heading">SUIT STATUS</div>
+        <div class="stat"><span>O₂</span><div class="bar"><i style="width:100%"></i></div><b>100%</b></div>
+        <div class="stat"><span>PRESS</span><div class="bar"><i style="width:79%"></i></div><b>4.3 psi</b></div>
+        <div class="stat"><span>TEMP</span><div class="bar"><i style="width:62%"></i></div><b>18 °C</b></div>
+        <div class="stat"><span>BAT</span><div class="bar"><i style="width:76%"></i></div><b>76%</b></div>
+      </div>
+    </section>
+
+    <div class="time-panel" id="time-panel"><span>EVA ELAPSED TIME</span><strong id="eva-time">00:00:00</strong></div>
+
+    <button class="emergency-banner" id="emergency-banner" type="button" aria-label="Acknowledge emergency alert">
+      <div class="warning-symbol">⚠</div>
+      <div><strong>EMERGENCY SITUATION</strong><span>MICROMETEOROID IMPACT DETECTED</span></div>
+      <div class="hazard-stripes"></div><small class="emergency-hint">CLICK TO ACKNOWLEDGE</small>
+    </button>
+
+    <section class="hud-panel task-panel" aria-label="Task checklist">
+      <div class="task-heading"><span class="station-icon">✣</span><div><small id="task-label">DEEP SPACE EXPLORER — EVA 3</small><small id="task-subtitle">LUBRICATE SOLAR ARRAY GIMBAL</small></div><span class="progress" id="task-progress">4 / 7</span></div>
+      <!-- Checklists are generated from static/js/tasks.js for easy editing. -->
+      <div class="task-rows" id="normal-tasks"></div>
+      <div class="task-rows" id="emergency-tasks" hidden></div>
+    </section>
+
+    <section class="hud-panel instruction-panel" id="instruction-panel" aria-label="AR identification">
+      <div class="panel-heading">STEP 4</div>
+      <div class="instruction-title">Apply lubricant to gimbal bearings.</div>
+      <p class="instruction-description">Insert nozzle and apply 2–3 pumps until visible coating is achieved.</p>
+    </section>
+    <div class="callout-line" id="callout-line" aria-hidden="true"></div>
+    <div class="circle-outline" id="circle-outline" aria-hidden="true"></div>
+
+    <section class="hud-panel power-panel" id="power-panel" aria-label="Solar power status">
+      <div class="power-top"><span class="sun-icon">☀</span><div class="power-details"><small>SOLAR POWER GENERATION</small><div class="power-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><b>12%</b></div>
+      <div class="power-bottom"><span>LOSS RATE</span><strong>−72.4 %/min</strong></div>
+    </section>
+
+    <section class="hud-panel map-panel" aria-label="Nearest airlock map">
+      <div class="map-caption">NEAREST AIRLOCK</div>
+      <svg viewBox="0 0 280 110" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <g fill="none" stroke="#00aaff" stroke-width="2"><path d="M140 7V103 M8 55H272"/><rect x="129" y="42" width="22" height="26"/><path d="M140 12h-20v10h40V12 M140 98h-20V88h40v10 M42 50V17h12v76H42z M226 50V17h12v76h-12z M68 48V34h16v42H68z M196 48V34h16v42h-16z"/><path d="M97 42h86v26H97z M112 29h56v52h-56z"/></g>
+        <g fill="#00b9ff"><rect x="135" y="25" width="10" height="60"/><rect x="87" y="51" width="106" height="8"/></g>
+        <circle cx="190" cy="37" r="12" fill="none" stroke="#ffbd20" stroke-width="4"/><circle cx="190" cy="37" r="4" fill="#ffbd20"/>
+        <circle cx="205" cy="63" r="5" fill="#f33"/><path d="M205 63L223 48" stroke="#f33" stroke-width="2"/>
+        <path d="M238 38L254 27" stroke="#00efaa" stroke-width="2"/><rect x="249" y="22" width="10" height="10" fill="none" stroke="#00efaa" stroke-width="2"/>
+      </svg>
+    </section>
+    <div class="connection-status" id="connection-status">Connecting…</div>
+  </main>
+</body>
+</html>

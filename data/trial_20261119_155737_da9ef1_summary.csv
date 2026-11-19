@@ -1,0 +1,2 @@
+trial_id,participant,date,notes,list_mode,started_at,ended_at,normal_clicks,emergency_clicks,total_clicks,progress_clicks,unnecessary_clicks,normal_progress_clicks,emergency_progress_clicks,normal_unnecessary_clicks,emergency_unnecessary_clicks,alert_count,reaction_time_ms,normal_step,emergency_step,last_display_mode
+trial_20261119_155737_da9ef1,Trial 1,2026-11-19,Experiment n1 for mode 1,all,2026-11-19T15:57:37.517-05:00,2026-11-19T15:58:55.842-05:00,14,1,15,3,11,3,0,11,0,1,2397,3,0,emergency
