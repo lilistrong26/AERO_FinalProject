@@ -14,6 +14,66 @@ let alertFirstSeenAt = null;
 let lastAlertId = null;
 let pendingInteraction = false;
 let experimentStartedAt = performance.now();
+// The participant can toggle the minimal time-only display with Space in normal status.
+let minimalView = false;
+let audioContext = null;
+let alarmTimer = null;
+
+function unlockAudio() {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    if (!audioContext) audioContext = new AudioContextClass();
+    if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
+  } catch (error) { console.warn("Audio unavailable:", error); }
+}
+
+// Alternating two-tone warning: noticeably louder than the old single soft beep.
+// Change ALARM_GAIN to adjust volume (keep below 0.18 for comfort).
+const ALARM_GAIN = 0.11;
+function playAlarmTone(frequency, delay, duration) {
+  if (!audioContext || audioContext.state !== "running") return;
+  const start = audioContext.currentTime + delay;
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  oscillator.type = "square";
+  oscillator.frequency.setValueAtTime(frequency, start);
+  gain.gain.setValueAtTime(0.0001, start);
+  gain.gain.linearRampToValueAtTime(ALARM_GAIN, start + 0.015);
+  gain.gain.setValueAtTime(ALARM_GAIN, start + duration - 0.04);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+  oscillator.start(start);
+  oscillator.stop(start + duration + 0.01);
+}
+function alarmBeep() {
+  if (!currentState?.running || currentState.mode !== "emergency" || currentState.acknowledged) return;
+  playAlarmTone(880, 0, 0.22);
+  playAlarmTone(660, 0.28, 0.22);
+}
+
+function updateAlarm() {
+  const shouldRing = currentState?.running && currentState.mode === "emergency" && !currentState.acknowledged;
+  if (shouldRing && alarmTimer === null) {
+    unlockAudio();
+    alarmBeep();
+    alarmTimer = setInterval(alarmBeep, 1100);
+  } else if (!shouldRing && alarmTimer !== null) {
+    clearInterval(alarmTimer);
+    alarmTimer = null;
+  }
+}
+
+document.addEventListener("pointerdown", unlockAudio, {passive: true});
+document.addEventListener("keydown", event => {
+  if (event.code !== "Space" || event.repeat || !currentState?.running || currentState.mode !== "normal") return;
+  if (["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(document.activeElement?.tagName)) return;
+  event.preventDefault();
+  unlockAudio();
+  minimalView = !minimalView;
+  viewport.classList.toggle("minimal-view", minimalView);
+});
 
 function formatTime(seconds) {
   const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
@@ -110,26 +170,37 @@ function applyState(state) {
     experimentStartedAt = performance.now();
     lastAlertId = null;
     alertFirstSeenAt = null;
+    minimalView = false;
   }
   if (modeChanged || stepChanged) expanded = false;
   currentState = state;
   viewport.classList.toggle("experiment-inactive", !state.running);
   waitingScreen.hidden = state.running;
-  if (!state.running) return;
+  if (!state.running) {
+    minimalView = false;
+    viewport.classList.remove("minimal-view");
+    updateAlarm();
+    return;
+  }
   const emergency = state.mode === "emergency";
   viewport.dataset.mode = state.mode;
+  // Emergency always overrides the participant's minimal view.
+  if (emergency) minimalView = false;
+  viewport.classList.toggle("minimal-view", minimalView && !emergency);
+  document.getElementById("emergency-task-copy").hidden = !emergency;
   document.getElementById("normal-tasks").hidden = emergency;
   document.getElementById("emergency-tasks").hidden = !emergency;
   taskLabel.textContent = emergency ? "EMERGENCY SITUATION" : "DEEP SPACE EXPLORER — EVA 3";
   taskSubtitle.textContent = emergency ? "SOLAR ARRAY IMPACT RESPONSE" : "LUBRICATE SOLAR ARRAY GIMBAL";
   const count = state[`${state.mode}_step`];
   const tasks = TASKS[state.mode];
-  taskProgress.textContent = count >= tasks.length ? `${count} / ${tasks.length} ✓` : `${count + 1} / ${tasks.length}`;
+  taskProgress.textContent = emergency ? "" : (count >= tasks.length ? `${count} / ${tasks.length} ✓` : `${count + 1} / ${tasks.length}`);
   const task = tasks[count];
   if (!emergency) {
-    instructionPanel.querySelector(".panel-heading").textContent = task ? `STEP ${count + 1}` : "TASK COMPLETE";
-    instructionPanel.querySelector(".instruction-title").textContent = task ? task.title : "All tasks completed";
-    instructionPanel.querySelector(".instruction-description").textContent = task ? task.details.join(" • ") : "Maintenance checklist complete.";
+    // AR callout identifies the physical object, not the procedure instructions.
+    const objects = ["EVA tool kit", "Starboard solar array", "Solar array gimbal", "Gimbal bearing", "Solar array gimbal", "Gimbal bearing", "EVA tool kit"];
+    instructionPanel.querySelector(".panel-heading").textContent = "";
+    instructionPanel.querySelector(".instruction-title").textContent = objects[count] || "Solar array gimbal";
   }
   if (emergency && (isNewTrial || lastAlertId !== state.alert_id)) {
     // First time the browser actually renders this alert, not when the controller pressed the button.
@@ -139,7 +210,9 @@ function applyState(state) {
   emergencyBanner.disabled = state.acknowledged;
   emergencyBanner.classList.toggle("acknowledged", state.acknowledged);
   emergencyBanner.querySelector(".emergency-hint").textContent = state.acknowledged ? "ALERT ACKNOWLEDGED" : "CLICK TO ACKNOWLEDGE";
-  renderTasks();
+  if (!emergency) renderTasks();
+  updateAlarm();
+  requestAnimationFrame(updateObjectArrow);
 }
 
 async function pollState() {
@@ -156,6 +229,7 @@ async function pollState() {
 
 emergencyBanner.addEventListener("click", () => {
   if (!currentState?.running || currentState.mode !== "emergency" || currentState.acknowledged || alertFirstSeenAt === null) return;
+  unlockAudio();
   sendInteraction("acknowledge", {reaction_time_ms: Math.round((performance.now() - alertFirstSeenAt) * 10) / 10});
 });
 
@@ -171,3 +245,35 @@ setInterval(() => {
 }, 1000);
 pollState();
 setInterval(pollState, 250);
+
+// Place the arrow using the real DOM positions rather than guessed CSS angles.
+function updateObjectArrow() {
+  const circle = document.getElementById("target-circle");
+  const svg = document.getElementById("object-arrow");
+  const line = document.getElementById("object-arrow-line");
+  if (!circle || !svg || !line || !instructionPanel) return;
+  if (!currentState?.running || currentState.mode !== "normal" || minimalView) return;
+
+  const view = viewport.getBoundingClientRect();
+  const object = circle.getBoundingClientRect();
+  const label = instructionPanel.getBoundingClientRect();
+  const cx = object.left + object.width / 2;
+  const cy = object.top + object.height / 2;
+  const radius = Math.min(object.width, object.height) / 2;
+  const startX = label.left + Math.min(32, label.width * 0.2);
+  const startY = label.bottom;
+  const dx = startX - cx;
+  const dy = startY - cy;
+  const distance = Math.hypot(dx, dy) || 1;
+  // Arrow ends at the object boundary, not through the middle of the object.
+  const endX = cx + (dx / distance) * (radius + 4);
+  const endY = cy + (dy / distance) * (radius + 4);
+
+  svg.setAttribute("viewBox", `0 0 ${view.width} ${view.height}`);
+  line.setAttribute("x1", (startX - view.left).toFixed(1));
+  line.setAttribute("y1", (startY - view.top).toFixed(1));
+  line.setAttribute("x2", (endX - view.left).toFixed(1));
+  line.setAttribute("y2", (endY - view.top).toFixed(1));
+}
+window.addEventListener("resize", () => requestAnimationFrame(updateObjectArrow));
+requestAnimationFrame(updateObjectArrow);

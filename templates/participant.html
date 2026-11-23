@@ -42,14 +42,25 @@
       <!-- Checklists are generated from static/js/tasks.js for easy editing. -->
       <div class="task-rows" id="normal-tasks"></div>
       <div class="task-rows" id="emergency-tasks" hidden></div>
+      <p class="emergency-task-copy" id="emergency-task-copy" hidden>Grab the <strong>YELLOW</strong> screw and tighten it into the bottom of the structure.</p>
     </section>
 
     <section class="hud-panel instruction-panel" id="instruction-panel" aria-label="AR identification">
-      <div class="panel-heading">STEP 4</div>
-      <div class="instruction-title">Apply lubricant to gimbal bearings.</div>
-      <p class="instruction-description">Insert nozzle and apply 2–3 pumps until visible coating is achieved.</p>
+      <div class="panel-heading"></div>
+      <div class="instruction-title">Solar array gimbal</div>
+      
     </section>
-    <div class="callout-line" id="callout-line" aria-hidden="true"></div>
+    <!-- Arrow follows the actual label and object positions, including on resize. -->
+    <svg class="object-arrow" id="object-arrow" aria-hidden="true">
+      <defs>
+        <marker id="object-arrowhead" markerWidth="7" markerHeight="7"
+                refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+          <path d="M0 0 L6 3.5 L0 7" fill="none" stroke="#00d9ff" stroke-width="1.7"/>
+        </marker>
+      </defs>
+      <line id="object-arrow-line" stroke="#00d9ff" stroke-width="3"
+            stroke-linecap="round" marker-end="url(#object-arrowhead)"/>
+    </svg>
     <div class="circle-outline" id="circle-outline" aria-hidden="true"></div>
 
     <section class="hud-panel power-panel" id="power-panel" aria-label="Solar power status">

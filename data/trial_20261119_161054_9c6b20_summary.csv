@@ -1,2 +1,0 @@
-trial_id,participant,date,notes,list_mode,started_at,ended_at,normal_clicks,emergency_clicks,total_clicks,progress_clicks,unnecessary_clicks,normal_progress_clicks,emergency_progress_clicks,normal_unnecessary_clicks,emergency_unnecessary_clicks,alert_count,reaction_time_ms,normal_step,emergency_step,last_display_mode
-trial_20261119_161054_9c6b20,Test,2026-11-19,,all,2026-11-19T16:10:54.694-05:00,2026-11-19T16:11:36.771-05:00,16,9,25,12,12,6,6,10,2,1,1433,6,6,normal
