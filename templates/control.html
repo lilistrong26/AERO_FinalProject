@@ -29,6 +29,12 @@
         <label class="radio-label"><input type="radio" name="list_mode" value="all" checked> Mode 1 — Show previous, current, and future tasks</label>
         <label class="radio-label"><input type="radio" name="list_mode" value="current"> Mode 2 — Show current task only</label>
       </fieldset>
+      <label for="procedure-select">Maintenance procedure</label>
+      <select id="procedure-select"><option value="gimbal">Solar array gimbal lubrication</option><option value="battery">Battery replacement</option></select>
+      <label for="emergency-select">Emergency scenario</label>
+      <select id="emergency-select"><option value="impact">Micrometeoroid impact</option><option value="pressure">Spacesuit pressure leak</option></select>
+      <label for="custom-emergency-message">Emergency instruction override (optional)</label>
+      <textarea id="custom-emergency-message" rows="2" placeholder="Leave blank for default emergency instructions"></textarea>
       <div class="controller-buttons"><button id="start-button">START EXPERIMENT</button><button id="stop-button" disabled>STOP EXPERIMENT</button></div>
       <button id="save-notes" class="secondary-button" type="button">Save updated notes</button>
     </section>
@@ -40,6 +46,26 @@
       <div class="controller-status">Emergency response: <strong id="ack-status">—</strong></div>
       <div class="controller-status">Latest reaction time: <strong id="reaction-time">—</strong></div>
       <div class="controller-status">Emergency triggers: <strong id="alert-count">0</strong></div>
+    </section>
+
+    <section class="hub-section">
+      <h2>3. Live task and image controls</h2>
+      <p>Select a task at any time. Changes appear on the participant display automatically.</p>
+      <label for="normal-step-select">Nominal task step</label><select id="normal-step-select"></select>
+      <label for="emergency-step-select">Emergency task step</label><select id="emergency-step-select"></select>
+      <div class="controller-buttons"><button id="apply-config" type="button">APPLY PROCEDURE / MODE / EMERGENCY</button><button id="apply-normal-step" type="button">SHOW NOMINAL STEP</button><button id="apply-emergency-step" type="button">SHOW EMERGENCY STEP</button></div>
+      <h3>Edit a task's displayed content</h3>
+      <label for="edit-group">Task type</label><select id="edit-group"><option value="procedures">Nominal procedure</option><option value="emergencies">Emergency</option></select>
+      <label for="edit-step">Task to edit</label><select id="edit-step"></select>
+      <label for="edit-title">Task title</label><input id="edit-title" type="text">
+      <label for="edit-object">AR object label (nominal)</label><input id="edit-object" type="text">
+      <label for="edit-details">Subtasks (one per line)</label><textarea id="edit-details" rows="5"></textarea>
+      <button id="save-task" type="button">SAVE TASK TEXT</button>
+      <h3>Upload task background image</h3>
+      <p>Uses the selected task above. JPG, PNG, or WebP images are converted to PNG and saved on the host computer. Existing images for that step are replaced.</p>
+      <input id="task-image" type="file" accept="image/png,image/jpeg,image/webp">
+      <button id="upload-image" type="button">UPLOAD IMAGE FOR SELECTED TASK</button>
+      <p id="image-status"></p>
     </section>
 
     <section class="click-counter-panel" aria-label="Participant interaction metrics">

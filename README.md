@@ -59,3 +59,14 @@ Edit `static/js/tasks.js`. For a study with a different number of tasks, update 
 - A responsive cyan SVG arrow connects the label to the actual target-circle position.
 - A stronger alternating two-tone emergency alert repeats until acknowledgement. Browser audio requires a participant gesture to unlock on some devices.
 - Existing controller, data export, and participant interaction APIs are unchanged.
+
+
+## Custom procedures, task images and controller (updated)
+
+The experimenter page `/control` now has separate choices for the nominal procedure (gimbal lubrication or simulated battery replacement), emergency scenario (micrometeoroid impact or suit pressure warning), and checklist density (full/current). Press **APPLY PROCEDURE / MODE / EMERGENCY** to change a running trial. Use **SHOW NOMINAL STEP** or **SHOW EMERGENCY STEP** to jump to a specific step. The participant can still advance steps from the HUD.
+
+To customize text, choose the task type and step under **Edit a task's displayed content**, edit its title/object/subtasks, then press **SAVE TASK TEXT**. Edits persist in `data/procedures.json`. Emergency instruction override is set in the experiment setup area and applied via the configuration button.
+
+To assign an image to any step, choose the task and step in the editor, select a JPG/PNG/WebP file, then press **UPLOAD IMAGE FOR SELECTED TASK**. Images are saved under `static/images/procedures/<procedures|emergencies>/<scenario>/<zero-based-step>.png` and automatically shown on the participant display. You can also copy PNG files into those folders manually, using filenames `0.png`, `1.png`, etc. Images update as the active step changes. The placeholder circle is hidden when an image is available. For remote uploads, open the controller from a device on the same local network using `http://<Mac-IP>:5001/control`. Do not expose the Flask development server to the public internet.
+
+The included battery replacement and emergency steps are simplified simulation prompts, not real maintenance or emergency instructions. Event and summary CSV exports include procedure and emergency identifiers. Experimenter-selected jumps are logged as such rather than participant task completion.

@@ -1,0 +1,4 @@
+trial_id,participant,date,notes,list_mode,timestamp,elapsed_s,event,display_mode,category,step,reaction_time_ms,normal_clicks,emergency_clicks,progress_clicks,unnecessary_clicks,procedure,emergency_scenario,custom_emergency_message
+trial_20261123_142618_179e03,p001,2026-11-23,,all,2026-11-23T14:26:18.589-05:00,0.0,experiment_started,normal,,0,,0,0,0,0,gimbal,pressure,
+trial_20261123_142618_179e03,p001,2026-11-23,,all,2026-11-23T14:26:20.005-05:00,1.416,background,normal,unnecessary,0,,1,0,0,1,gimbal,pressure,
+trial_20261123_142618_179e03,p001,2026-11-23,,all,2026-11-23T14:26:24.159-05:00,5.571,experiment_stopped,normal,,0,,1,0,0,1,gimbal,pressure,

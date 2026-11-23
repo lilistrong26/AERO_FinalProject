@@ -171,3 +171,12 @@ body { margin: 0; }
 #viewport[data-mode="emergency"] #object-arrow,
 #viewport.minimal-view #object-arrow,
 #viewport.experiment-inactive #object-arrow { display: none !important; }
+
+/* Uploaded per-task background, below the HUD overlays. */
+.task-background {position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;}
+.task-background[hidden] {display:none!important;}
+.workspace:has(.task-background:not([hidden])) .target-circle {display:none;}
+.viewport:has(.task-background:not([hidden])) .circle-outline,
+.viewport:has(.task-background:not([hidden])) #object-arrow {display:none!important;}
+.controller-page select,.controller-page input[type=file] {width:100%;max-width:100%;padding:10px;margin:6px 0 12px;background:#102c40;color:#eaf8ff;border:1px solid #217ea8;border-radius:5px;}
+.controller-page h3 {margin-top:22px;}

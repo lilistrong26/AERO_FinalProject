@@ -13,6 +13,7 @@
     <div class="waiting-screen" id="waiting-screen">Waiting for experiment to start</div>
     <!-- Replace this empty workspace with SolidWorks images in a future version. -->
     <div class="workspace" aria-label="Blank model workspace">
+      <img id="task-background" class="task-background" alt="Maintenance task illustration" hidden>
       <div class="target-circle" id="target-circle" aria-label="Circle to identify"></div>
     </div>
 
@@ -42,7 +43,7 @@
       <!-- Checklists are generated from static/js/tasks.js for easy editing. -->
       <div class="task-rows" id="normal-tasks"></div>
       <div class="task-rows" id="emergency-tasks" hidden></div>
-      <p class="emergency-task-copy" id="emergency-task-copy" hidden>Grab the <strong>YELLOW</strong> screw and tighten it into the bottom of the structure.</p>
+      <p class="emergency-task-copy" id="emergency-task-copy" hidden></p>
     </section>
 
     <section class="hud-panel instruction-panel" id="instruction-panel" aria-label="AR identification">

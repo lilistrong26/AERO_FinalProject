@@ -102,7 +102,7 @@ async function sendInteraction(kind, extra = {}) {
 
 function renderTasks() {
   const mode = currentState.mode;
-  const tasks = TASKS[mode];
+  const tasks = mode === "normal" ? currentState.procedures[currentState.procedure].steps : currentState.emergencies[currentState.emergency_scenario].steps;
   const count = currentState[`${mode}_step`];
   const container = document.getElementById(`${mode}-tasks`);
   container.replaceChildren();
@@ -122,7 +122,7 @@ function renderTasks() {
     checkbox.setAttribute("aria-label", `Complete ${task.title}`);
     if (active) checkbox.addEventListener("click", () => sendInteraction("advance", {step: index}));
     row.appendChild(checkbox);
-    const prefix = mode === "normal" ? `${index + 1}.` : `E2.${index + 1}`;
+    const prefix = mode === "normal" ? `${index + 1}.` : `${currentState.emergency_scenario === "pressure" ? "E1" : "E2"}.${index + 1}`;
     if (active) {
       const toggle = document.createElement("button");
       toggle.type = "button";
@@ -164,7 +164,7 @@ function applyState(state) {
   const prior = currentState;
   const isNewTrial = !prior || prior.trial_id !== state.trial_id;
   const modeChanged = !prior || prior.mode !== state.mode;
-  const stepChanged = prior && prior[`${state.mode}_step`] !== state[`${state.mode}_step`];
+  const stepChanged = prior && (prior[`${state.mode}_step`] !== state[`${state.mode}_step`] || prior.procedure !== state.procedure || prior.emergency_scenario !== state.emergency_scenario);
   if (isNewTrial) {
     expanded = false;
     experimentStartedAt = performance.now();
@@ -191,14 +191,19 @@ function applyState(state) {
   document.getElementById("normal-tasks").hidden = emergency;
   document.getElementById("emergency-tasks").hidden = !emergency;
   taskLabel.textContent = emergency ? "EMERGENCY SITUATION" : "DEEP SPACE EXPLORER — EVA 3";
-  taskSubtitle.textContent = emergency ? "SOLAR ARRAY IMPACT RESPONSE" : "LUBRICATE SOLAR ARRAY GIMBAL";
+  taskSubtitle.textContent = emergency ? state.emergencies[state.emergency_scenario].subtitle : state.procedures[state.procedure].title.toUpperCase();
+  document.getElementById("emergency-task-copy").textContent = state.custom_emergency_message || state.emergencies[state.emergency_scenario].message;
+  emergencyBanner.querySelector("strong").textContent = emergency ? state.emergencies[state.emergency_scenario].title.toUpperCase() : "EMERGENCY SITUATION";
+  const bg = document.getElementById("task-background");
+  bg.hidden = !state.background_url;
+  if (state.background_url && bg.getAttribute("src") !== state.background_url) bg.src = state.background_url;
   const count = state[`${state.mode}_step`];
-  const tasks = TASKS[state.mode];
+  const tasks = emergency ? state.emergencies[state.emergency_scenario].steps : state.procedures[state.procedure].steps;
   taskProgress.textContent = emergency ? "" : (count >= tasks.length ? `${count} / ${tasks.length} ✓` : `${count + 1} / ${tasks.length}`);
   const task = tasks[count];
   if (!emergency) {
     // AR callout identifies the physical object, not the procedure instructions.
-    const objects = ["EVA tool kit", "Starboard solar array", "Solar array gimbal", "Gimbal bearing", "Solar array gimbal", "Gimbal bearing", "EVA tool kit"];
+    const objects = tasks.map(item => item.object || item.title);
     instructionPanel.querySelector(".panel-heading").textContent = "";
     instructionPanel.querySelector(".instruction-title").textContent = objects[count] || "Solar array gimbal";
   }
@@ -210,7 +215,7 @@ function applyState(state) {
   emergencyBanner.disabled = state.acknowledged;
   emergencyBanner.classList.toggle("acknowledged", state.acknowledged);
   emergencyBanner.querySelector(".emergency-hint").textContent = state.acknowledged ? "ALERT ACKNOWLEDGED" : "CLICK TO ACKNOWLEDGE";
-  if (!emergency) renderTasks();
+  renderTasks();
   updateAlarm();
   requestAnimationFrame(updateObjectArrow);
 }

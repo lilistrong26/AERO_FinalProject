@@ -1,0 +1,5 @@
+trial_id,participant,date,notes,list_mode,timestamp,elapsed_s,event,display_mode,category,step,reaction_time_ms,normal_clicks,emergency_clicks,progress_clicks,unnecessary_clicks,procedure,emergency_scenario,custom_emergency_message
+trial_20261123_142637_ead877,p001,2026-11-23,,all,2026-11-23T14:26:37.901-05:00,0.0,experiment_started,normal,,0,,0,0,0,0,battery,pressure,
+trial_20261123_142637_ead877,p001,2026-11-23,,all,2026-11-23T14:26:48.411-05:00,10.509,emergency_triggered,emergency,,0,,0,0,0,0,battery,pressure,
+trial_20261123_142637_ead877,p001,2026-11-23,,all,2026-11-23T14:26:49.838-05:00,11.936,acknowledge,emergency,response,0,1373.8,0,1,0,0,battery,pressure,
+trial_20261123_142637_ead877,p001,2026-11-23,,all,2026-11-23T14:26:58.802-05:00,20.901,experiment_stopped,emergency,,0,,0,1,0,0,battery,pressure,
